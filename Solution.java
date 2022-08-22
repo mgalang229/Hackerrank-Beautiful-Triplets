@@ -43,28 +43,16 @@ public class Solution {
 			for (int i = 1; i < n - 1; i++) {
 				int leftNum = a[i] - d;
 				int rightNum = a[i] + d;
-				if (exists(a, 0, i - 1, leftNum) && exists(a, i + 1, n - 1, rightNum)) {
-					count += getFreq(a, freq, 0, i - 1, leftNum) * getFreq(a, freq, i + 1, n - 1, rightNum);
+				int leftNumFreq = getFreq(a, freq, 0, i - 1, leftNum);
+				int rightNumFreq = getFreq(a, freq, i + 1, n - 1, rightNum);
+				if (leftNumFreq > 0 && rightNumFreq > 0) {
+					count +=  leftNumFreq * rightNumFreq;
 				}
 			}
 			out.println(count);
 		}
 		fs.close();
 		out.close();
-	}
-	
-	static boolean exists(int[] a, int low, int high, int num) {
-		while (low <= high) {
-			int mid = low + (high - low) / 2;
-			if (a[mid] == num) {
-				return true;
-			} else if (a[mid] > num) {
-				high = mid - 1;
-			} else {
-				low = mid + 1;
-			}
-		}
-		return false;
 	}
 	
 	static int getFreq(int[] a, int[] freq, int low, int high, int num) {
